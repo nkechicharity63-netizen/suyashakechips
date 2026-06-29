@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suya Shake Chips — Shake it. Love it. Crave it.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0D0B09;
+      --charcoal:#1A1713;
+      --orange:  #F4620F;
+      --amber:   #E8A020;
+      --red:     #C0281C;
+      --cream:   #F5EDD8;
+      --white:   #FFFFFF;
+      --grey:    #9A8F83;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 40px;
+      background: rgba(13,11,9,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(244,98,15,0.15);
+    }
+    .nav-logo {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 1.4rem;
+      color: var(--orange);
+      letter-spacing: 1px;
+    }
+    .nav-logo span { color: var(--white); }
+    nav ul { list-style: none; display: flex; gap: 32px; }
+    nav ul a {
+      color: var(--grey); text-decoration: none;
+      font-weight: 700; font-size: 0.85rem; letter-spacing: 0.5px;
+      text-transform: uppercase; transition: color 0.2s;
+    }
+    nav ul a:hover { color: var(--orange); }
+    .nav-cta {
+      background: var(--orange); color: var(--white);
+      border: none; padding: 10px 22px; border-radius: 50px;
+      font-family: 'Nunito', sans-serif; font-weight: 800;
+      font-size: 0.85rem; cursor: pointer; letter-spacing: 0.5px;
+      text-transform: uppercase; transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: #d9540c; transform: scale(1.04); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 0;
+      padding: 100px 0 60px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 70% 50%, rgba(244,98,15,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-text { padding: 60px 60px 60px 80px; }
+    .hero-eyebrow {
+      display: inline-block;
+      background: rgba(244,98,15,0.15);
+      border: 1px solid rgba(244,98,15,0.4);
+      color: var(--orange); font-size: 0.75rem;
+      font-weight: 800; letter-spacing: 2px;
+      text-transform: uppercase; padding: 6px 16px;
+      border-radius: 50px; margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: clamp(3.2rem, 6vw, 5.5rem);
+      line-height: 1.0;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .hero h1 .accent { color: var(--orange); }
+    .hero-tagline {
+      font-size: 1.05rem; color: var(--grey);
+      font-weight: 600; margin: 20px 0 36px;
+      line-height: 1.6; max-width: 420px;
+    }
+    .hero-tagline strong { color: var(--cream); }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--orange); color: var(--white);
+      border: none; padding: 16px 36px; border-radius: 50px;
+      font-family: 'Nunito', sans-serif; font-weight: 800;
+      font-size: 1rem; cursor: pointer; letter-spacing: 0.3px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: #d9540c; transform: translateY(-2px); }
+    .btn-secondary {
+      background: transparent; color: var(--white);
+      border: 2px solid rgba(255,255,255,0.2);
+      padding: 16px 36px; border-radius: 50px;
+      font-family: 'Nunito', sans-serif; font-weight: 800;
+      font-size: 1rem; cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--orange); color: var(--orange); }
+
+    .hero-image-wrap {
+      position: relative; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      padding: 40px 40px 40px 0;
+    }
+    .hero-image-wrap img {
+      width: 100%; max-width: 620px;
+      border-radius: 24px;
+      object-fit: cover;
+      box-shadow: 0 40px 120px rgba(244,98,15,0.25), 0 0 0 1px rgba(244,98,15,0.1);
+    }
+    .shake-badge {
+      position: absolute; bottom: 60px; left: -10px;
+      background: var(--orange); color: var(--white);
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 0.9rem; padding: 12px 20px;
+      border-radius: 12px; letter-spacing: 1px;
+      box-shadow: 0 8px 24px rgba(244,98,15,0.4);
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      text-align: center; padding: 12px 0;
+      color: var(--orange); font-size: 1.5rem;
+      letter-spacing: 16px; opacity: 0.35;
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      text-align: center; padding: 80px 20px 48px;
+    }
+    .section-header .eyebrow {
+      display: inline-block; color: var(--orange);
+      font-size: 0.75rem; font-weight: 800;
+      letter-spacing: 3px; text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .section-header h2 {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--white); line-height: 1.1;
+    }
+    .section-header p {
+      color: var(--grey); font-size: 1rem;
+      margin-top: 14px; max-width: 520px; margin-left: auto; margin-right: auto;
+      line-height: 1.6;
+    }
+
+    /* ── MENU ── */
+    #menu { padding: 0 40px 100px; }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px; max-width: 1100px; margin: 0 auto;
+    }
+    .menu-card {
+      background: var(--charcoal);
+      border-radius: 20px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+    }
+    .menu-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 60px rgba(244,98,15,0.2);
+    }
+    .menu-card.featured {
+      border-color: rgba(244,98,15,0.4);
+      box-shadow: 0 0 0 1px rgba(244,98,15,0.2);
+    }
+    .menu-card-badge {
+      background: var(--orange); color: var(--white);
+      font-size: 0.7rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 1px;
+      padding: 6px 14px; text-align: center;
+    }
+    .menu-card-badge.red-badge { background: var(--red); }
+    .menu-card-badge.amber-badge { background: var(--amber); color: var(--black); }
+    .card-body { padding: 28px 28px 32px; }
+    .card-title {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 1.7rem; color: var(--white);
+      margin-bottom: 12px;
+    }
+    .card-ingredients {
+      list-style: none; margin-bottom: 24px;
+    }
+    .card-ingredients li {
+      color: var(--grey); font-size: 0.88rem; font-weight: 600;
+      padding: 5px 0; display: flex; align-items: center; gap: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .card-ingredients li:last-child { border-bottom: none; }
+    .card-ingredients li::before { content: '—'; color: var(--orange); }
+    .size-row {
+      display: flex; gap: 8px; margin-bottom: 24px;
+    }
+    .size-btn {
+      flex: 1; background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white); font-family: 'Nunito', sans-serif;
+      font-weight: 800; font-size: 0.8rem;
+      padding: 10px 4px; border-radius: 8px; cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      text-align: center;
+    }
+    .size-btn.active, .size-btn:hover {
+      background: rgba(244,98,15,0.2);
+      border-color: var(--orange); color: var(--orange);
+    }
+    .card-price {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 1.5rem; color: var(--orange); margin-bottom: 16px;
+    }
+    .card-price span { font-family: 'Nunito', sans-serif; font-size: 0.85rem; color: var(--grey); font-weight: 600; }
+    .order-btn {
+      width: 100%; background: var(--orange); color: var(--white);
+      border: none; padding: 14px; border-radius: 50px;
+      font-family: 'Nunito', sans-serif; font-weight: 800;
+      font-size: 0.95rem; cursor: pointer; letter-spacing: 0.3px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .order-btn:hover { background: #d9540c; transform: scale(1.02); }
+    .order-btn.outline {
+      background: transparent; border: 2px solid rgba(255,255,255,0.15);
+      color: var(--white);
+    }
+    .order-btn.outline:hover { border-color: var(--orange); color: var(--orange); background: transparent; transform: scale(1.02); }
+     .menu-image{display: block; margin: 0 auto;}
+     .menu-image {width: 100px;} 
+
+    
+    /* ── HOW IT WORKS ── */
+    #how { background: var(--charcoal); padding: 0 40px 100px; }
+    .steps {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 24px; max-width: 1000px; margin: 0 auto;
+      position: relative;
+    }
+    .steps::before {
+      content: '';
+      position: absolute; top: 40px; left: 12%; right: 12%;
+      height: 1px; background: linear-gradient(90deg, transparent, var(--orange), transparent);
+      opacity: 0.3;
+    }
+    .step { text-align: center; padding: 20px; }
+    .step-icon {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: rgba(244,98,15,0.1);
+      border: 2px solid rgba(244,98,15,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; margin: 0 auto 20px;
+    }
+    .step h3 {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 1.1rem; color: var(--white); margin-bottom: 8px;
+    }
+    .step p { color: var(--grey); font-size: 0.88rem; line-height: 1.6; }
+
+    /* ── SOCIAL PROOF ── */
+    #reviews { padding: 0 40px 100px; }
+    .reviews-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 20px; max-width: 1000px; margin: 0 auto;
+    }
+    .review-card {
+      background: var(--charcoal);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px; padding: 28px;
+    }
+    .stars { color: var(--amber); font-size: 1rem; margin-bottom: 14px; }
+    .review-text {
+      color: var(--cream); font-size: 0.92rem;
+      line-height: 1.65; font-style: italic; margin-bottom: 18px;
+    }
+    .reviewer { color: var(--grey); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.5px; }
+
+    /* ── ORDER FORM ── */
+    #order {
+      background: var(--charcoal);
+      padding: 100px 40px;
+    }
+    .order-wrap {
+      max-width: 660px; margin: 0 auto;
+    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+    label {
+      color: var(--grey); font-size: 0.78rem;
+      font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+    }
+    input, select, textarea {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white); font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem; padding: 14px 16px;
+      border-radius: 10px; outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--orange); }
+    select option { background: var(--charcoal); }
+    textarea { resize: vertical; min-height: 80px; }
+    .submit-btn {
+      width: 100%; margin-top: 24px;
+      background: var(--orange); color: var(--white);
+      border: none; padding: 18px; border-radius: 50px;
+      font-family: 'Nunito', sans-serif; font-weight: 800;
+      font-size: 1.05rem; cursor: pointer; letter-spacing: 0.3px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .submit-btn:hover { background: #d9540c; transform: translateY(-2px); }
+    .form-note {
+      text-align: center; color: var(--grey);
+      font-size: 0.8rem; margin-top: 12px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 48px 80px 32px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 24px;
+    }
+    .footer-brand {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 1.4rem; color: var(--orange);
+    }
+    .footer-brand span { color: var(--white); }
+    .footer-tagline { color: var(--grey); font-size: 0.8rem; margin-top: 4px; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: var(--grey); text-decoration: none; font-size: 0.85rem; font-weight: 600; }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-copy { color: rgba(255,255,255,0.2); font-size: 0.75rem; width: 100%; text-align: center; margin-top: 24px; }
+
+    /* ── SUCCESS TOAST ── */
+    .toast {
+      position: fixed; bottom: 32px; right: 32px; z-index: 999;
+      background: #1a3320; border: 1px solid #2e6b40;
+      color: #6cd98f; font-weight: 700; padding: 16px 24px;
+      border-radius: 12px; font-size: 0.95rem;
+      transform: translateY(80px); opacity: 0;
+      transition: transform 0.35s, opacity 0.35s;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding-top: 90px; }
+      .hero-text { padding: 40px 32px; text-align: center; }
+      .hero-actions { justify-content: center; }
+      .hero-image-wrap { padding: 0 24px 40px; }
+      .shake-badge { left: 24px; bottom: 50px; }
+      .menu-grid, .steps, .reviews-grid { grid-template-columns: 1fr; }
+      .steps::before { display: none; }
+      nav ul { display: none; }
+      footer { flex-direction: column; text-align: center; padding: 40px 24px 24px; }
+      .footer-links { justify-content: center; }
+      #menu, #how, #reviews, #order { padding-left: 20px; padding-right: 20px; }
+    }
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .shake-badge { animation: none; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div> <img src="1000382525-removebg-preview.png" width="100px" height="100px" alt="logo"></div>
+  <div class="nav-logo">SUYA<span> SHAKE CHIPS</span></div>
+  <ul>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#order">Order</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})">Order Now</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">🔥 Nigeria's Boldest Street Snack</div>
+    <h1>SHAKE IT.<br><span class="accent">LOVE IT.</span><br>CRAVE IT.</h1>
+    <p class="hero-tagline">Crispy fries loaded with <strong>suya pepper spice</strong>, hot dogs, sardines, or egg sauce — shaken fresh in a cup, right in front of you.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">See the Menu</button>
+      <button class="btn-secondary" onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})">Place an Order</button>
+    </div>
+  </div>
+  <div class="hero-image-wrap">  
+    <img src="./1000382426.png" width="400px" height="200px" alt="Suya Shake Chips – Classic, Ocean Mix and Premium cups" />
+    <div class="shake-badge">🫙 Shaken Fresh Every Time</div>
+  </div>
+</section>
+
+<div class="divider">• • • • •</div>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="section-header">
+    <div class="eyebrow">Pick Your Flavor</div>
+    <h2>THE MENU</h2>
+    <p>Three ways to satisfy the craving. Every cup shaken to order with our signature suya pepper blend.</p>
+  </div>
+
+  <div class="menu-grid">
+
+    <!-- CLASSIC -->
+    <div class="menu-card">
+      <div class="menu-card-badge red-badge">🍟 Classic</div>
+      <div class="card-body">
+        <div class="card-title">CLASSIC</div>
+        <ul class="card-ingredients">
+          <li>Crispy fries</li>
+          <li>Sliced hot dogs</li>
+          <li>Suya pepper seasoning</li>
+          <li>Ketchup drizzle</li>
+        </ul></div>
+        <div class="size-row">
+          <button class="size-btn active" onclick="selectSize(this, 'classic', 'S', 500)">S<br><small>₦500</small></button>
+          <button class="size-btn" onclick="selectSize(this, 'classic', 'M', 800)">M<br><small>₦800</small></button>
+          <button class="size-btn" onclick="selectSize(this, 'classic', 'L', 1100)">L<br><small>₦1100</small></button>
+        </div>
+        <div class="card-price" id="price-classic">₦500 <span>/ Small</span></div>
+        <button class="order-btn outline" onclick="addToOrder('Classic', 'classic')">Add to Order →</button>
+        <div class="menu-image">
+          <img src="./1000382522.png" width="80px" height="100px"
+          class="menu-image">
+          </div>
+          </div>
+
+    
+
+    <!-- OCEAN MIX -->
+    <div class="menu-card featured">
+      <div class="menu-card-badge">🌊 Most Popular</div>
+      <div class="card-body">
+        <div class="card-title">OCEAN MIX</div>
+        <ul class="card-ingredients">
+          <li>Crispy fries</li>
+          <li>Sliced hot dogs</li>
+          <li>Flaked sardines</li>
+          <li>Suya pepper seasoning</li>
+          <li>Ketchup drizzle</li>
+        </ul>
+        <div class="size-row">
+          <button class="size-btn active" onclick="selectSize(this, 'ocean', 'S', 700)">S<br><small>₦700</small></button>
+          <button class="size-btn" onclick="selectSize(this, 'ocean', 'M', 1000)">M<br><small>₦1000</small></button>
+          <button class="size-btn" onclick="selectSize(this, 'ocean', 'L', 1400)">L<br><small>₦1400</small></button>
+        </div>
+        <div class="card-price" id="price-ocean">₦700 <span>/ Small</span></div>
+        <button class="order-btn" onclick="addToOrder('Ocean Mix', 'ocean')">Add to Order →</button>
+      </div>
+      <div class="menu-image">
+          <img src="./1000382523.png" width="80px" height="100px"
+          class="menu-image">
+          </div>
+         </div>
+
+    <!-- PREMIUM -->
+    <div class="menu-card">
+      <div class="menu-card-badge amber-badge">⭐ Premium</div>
+      <div class="card-body">
+        <div class="card-title">PREMIUM</div>
+        <ul class="card-ingredients">
+          <li>Crispy fries</li>
+          <li>Sliced hot dogs</li>
+          <li>Flaked sardines</li>
+          <li>Boiled egg</li>
+          <li>Suya pepper seasoning</li>
+          <li>Egg sauce</li>
+        </ul>
+        <div class="size-row">
+          <button class="size-btn active" onclick="selectSize(this, 'premium', 'S', 1000)">S<br><small>₦1000</small></button>
+          <button class="size-btn" onclick="selectSize(this, 'premium', 'M', 1400)">M<br><small>₦1400</small></button>
+          <button class="size-btn" onclick="selectSize(this, 'premium', 'L', 1800)">L<br><small>₦1800</small></button>
+        </div>
+        <div class="card-price" id="price-premium">₦1,000 <span>/ Small</span></div>
+        <button class="order-btn outline" onclick="addToOrder('Premium', 'premium')">Add to Order →</button>
+      </div>
+      <div class="menu-image">
+          <img src="./1000382524.png" width="80px" height="100px"
+          class="menu-image">
+          </div>
+         </div>
+        </section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-header">
+    <div class="eyebrow">The Experience</div>
+    <h2>HOW IT WORKS</h2>
+    <p>It's not just food — it's a ritual. The shake is the show.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-icon">🍟</div>
+      <h3>Choose Your Cup</h3>
+      <p>Pick Classic, Ocean Mix, or Premium. Then choose your size — Small, Medium, or Large.</p>
+    </div>
+    <div class="step">
+      <div class="step-icon">🌶️</div>
+      <h3>Season It</h3>
+      <p>Fresh fries go into the cup. Your chosen toppings are layered on top.</p>
+    </div>
+    <div class="step">
+      <div class="step-icon">🫙</div>
+      <h3>Shake It</h3>
+      <p>The cup is sealed and shaken to coat every fry in our signature suya pepper blend.</p>
+    </div>
+    <div class="step">
+      <div class="step-icon">🔥</div>
+      <h3>Eat It Fresh</h3>
+      <p>Handed to you piping hot. Every bite different. Every bite bold.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="section-header">
+    <div class="eyebrow">What People Are Saying</div>
+    <h2>THE WORD ON CAMPUS</h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"The Ocean Mix is genuinely addictive. The suya pepper with the sardines sounds weird but tastes incredible. I go back every single day."</p>
+      <div class="reviewer">— Adaeze O., University of Lagos</div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"I filmed the whole shaking process and it's now my most viewed reel. People keep asking where this place is. The food lives up to the hype."</p>
+      <div class="reviewer">— Tunde B., Lagos Island</div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★☆</div>
+      <p class="review-text">"Premium cup is a full meal for ₦1,400. That's actually value for money in this economy. The egg on top makes it feel proper."</p>
+      <div class="reviewer">— Chisom A., Surulere</div>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER FORM -->
+<section id="order">
+  <div class="section-header" style="padding-bottom: 40px;">
+    <div class="eyebrow">Place Your Order</div>
+    <h2>ORDER NOW</h2>
+    <p>Fill in your details and we'll have your cup ready. Walk-ins welcome — or call ahead for pickup.</p>
+  </div>
+  <div class="order-wrap">
+    <div id="order-summary" style="background:rgba(244,98,15,0.08); border:1px solid rgba(244,98,15,0.2); border-radius:12px; padding:16px 20px; margin-bottom:24px; display:none;">
+      <div style="font-size:0.75rem; font-weight:800; color:var(--orange); letter-spacing:1px; text-transform:uppercase; margin-bottom:10px;">Your Selection</div>
+      <div id="order-items" style="color:var(--cream); font-size:0.9rem; line-height:1.8;"></div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" placeholder="e.g. Amara" />
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" placeholder="e.g. 0801 234 5678" />
+      </div>
+      <div class="form-group">
+        <label for="order-type">Flavour</label>
+        <select id="order-type">
+          <option value="">Select flavour</option>
+          <option value="Classic">Classic</option>
+          <option value="Ocean Mix">Ocean Mix</option>
+          <option value="Premium">Premium</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="order-size">Size</label>
+        <select id="order-size">
+          <option value="">Select size</option>
+          <option value="Small">Small</option>
+          <option value="Medium">Medium</option>
+          <option value="Large">Large</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="qty">Quantity</label>
+        <input type="number" id="qty" min="1" max="20" placeholder="1" value="1" />
+      </div>
+      <div class="form-group">
+        <label for="pickup">Pickup or Delivery</label>
+        <select id="pickup">
+          <option value="pickup">Pickup</option>
+          <option value="delivery">Delivery (Lagos only)</option>
+        </select>
+      </div>
+      <div class="form-group full" id="address-group" style="display:none;">
+        <label for="address">Delivery Address</label>
+        <input type="text" id="address" placeholder="Enter your delivery address" />
+      </div>
+      <div class="form-group full">
+        <label for="notes">Special Instructions (optional)</label>
+        <textarea id="notes" placeholder="Extra pepper? No ketchup? Let us know."></textarea>
+      </div>
+    </div>
+
+    <button class="submit-btn" onclick="submitOrder()">🔥 Place My Order</button>
+    <p class="form-note">We'll confirm your order via WhatsApp within 5 minutes.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">SUYA<span> SHAKE CHIPS</span></div>
+    <div class="footer-tagline">Shake it. Love it. Crave it.</div>
+  </div>
+  <div class="footer-links">
+    <a href="#menu">Menu</a>
+    <a href="#how">How It Works</a>
+    <a href="#order">Order</a>
+    <a href="https://wa.me/2349063132357" target="_blank">WhatsApp Us</a>
+  </div>
+  <div class="footer-copy">© 2026 Suya Shake Chips. All rights reserved. Lagos, Nigeria.</div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  /* ── Size selector state ── */
+  const selectedSizes = {
+    classic: { size: 'S', price: 500 },
+    ocean:   { size: 'S', price: 700 },
+    premium: { size: 'S', price: 1000 }
+  };
+
+  const sizeLabels = { S: 'Small', M: 'Medium', L: 'Large' };
+
+  function selectSize(btn, card, size, price) {
+    const row = btn.closest('.size-row');
+    row.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedSizes[card] = { size, price };
+    const el = document.getElementById('price-' + card);
+    el.innerHTML = '₦' + price.toLocaleString() + ' <span>/ ' + sizeLabels[size] + '</span>';
+  }
+
+  /* ── Add to order (pre-fill form) ── */
+  function addToOrder(label, key) {
+    const { size, price } = selectedSizes[key];
+    document.getElementById('order-type').value = label;
+    document.getElementById('order-size').value = sizeLabels[size];
+    const summary = document.getElementById('order-summary');
+    const items = document.getElementById('order-items');
+    items.innerHTML = label + ' – ' + sizeLabels[size] + ' &nbsp;·&nbsp; ₦' + price.toLocaleString();
+    summary.style.display = 'block';
+    document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  /* ── Delivery address toggle ── */
+  document.getElementById('pickup').addEventListener('change', function() {
+    document.getElementById('address-group').style.display =
+      this.value === 'delivery' ? 'block' : 'none';
+  });
+
+  /* ── Form submission ── */
+  function submitOrder() {
+    const fname    = document.getElementById('fname').value.trim();
+    const phone    = document.getElementById('phone').value.trim();
+    const flavour  = document.getElementById('order-type').value;
+    const size     = document.getElementById('order-size').value;
+    const qty      = document.getElementById('qty').value;
+    const pickup   = document.getElementById('pickup').value;
+    const address  = document.getElementById('address').value.trim();
+    const notes    = document.getElementById('notes').value.trim();
+
+    if (!fname || !phone || !flavour || !size) {
+      showToast('⚠️ Please fill in your name, phone, flavour, and size.', '#3a1a0a', '#c05020', '#ff8060');
+      return;
+    }
+    if (pickup === 'delivery' && !address) {
+      showToast('⚠️ Please enter your delivery address.', '#3a1a0a', '#c05020', '#ff8060');
+      return;
+    }
+
+    /* Build WhatsApp message */
+    const msg = encodeURIComponent(
+      `Hello! 👋 I'd like to order from Suya Shake Chips.\n\n` +
+      `Name: ${fname}\nFlavour: ${flavour}\nSize: ${size}\nQty: ${qty}\n` +
+      `Type: ${pickup === 'delivery' ? 'Delivery – ' + address : 'Pickup'}\n` +
+      (notes ? `Notes: ${notes}` : '')
+    );
+
+    /* Replace with your real WhatsApp number below */
+    window.open(`https://wa.me/2349063132357?text=${msg}`, '_blank');
+    showToast('✅ Redirecting to WhatsApp to confirm your order!', '#0d2016', '#2a6040', '#6cd98f');
+  }
+
+  function showToast(msg, bg, border, color) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.style.background = bg;
+    t.style.borderColor = border;
+    t.style.color = color;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
+</script>
+
+</body>
+</html>
